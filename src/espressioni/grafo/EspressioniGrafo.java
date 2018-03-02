@@ -40,12 +40,12 @@ public class EspressioniGrafo extends Application {
         });
         solveStepButton.setOnAction(e -> {
             if (a != null) {
-                a.solveStep();
-                a.print(treeView);
-
                 if (!a.isSolvable()) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION, "The expression is in it's base form");
                     alert.showAndWait().filter(response -> response == ButtonType.OK);
+                } else {
+                    a.solveStep();
+                    a.print(treeView);
                 }
 
             }

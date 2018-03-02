@@ -47,7 +47,7 @@ public class InfixPostfixConverter {
 
         //Shunting-yard algorithm     
         Stack<String> operator = new Stack<>();
-        Queue<String> output = new LinkedList<>();
+        ArrayList<String> output = new ArrayList<>();
 
         for (int i = 0; i < tokens.size(); ++i) {
             String token = tokens.get(i);
@@ -77,12 +77,7 @@ public class InfixPostfixConverter {
         while (!operator.empty()) {
             output.add(operator.pop());
         }
-        ArrayList<String> o = new ArrayList<>();
-
-        while (!output.isEmpty()) {
-            o.add(output.poll());
-        }
-        return o;
+        return output;
     }
 
 }
