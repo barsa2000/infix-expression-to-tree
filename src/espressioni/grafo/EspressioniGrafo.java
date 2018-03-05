@@ -2,6 +2,7 @@ package espressioni.grafo;
 
 import java.util.ArrayList;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,7 +22,8 @@ public class EspressioniGrafo extends Application {
     @Override
     public void start(Stage primaryStage) {
         TreeView treeView = new TreeView();
-        TextField expressionField = new TextField("1+1+2");
+        TextField expressionField = new TextField();
+        expressionField.setPromptText("insert the expression");
         Button submitButton = new Button("Submit");
         Button solveStepButton = new Button("Solve Step");
         Button solveButton = new Button("Solve All");
@@ -60,6 +62,11 @@ public class EspressioniGrafo extends Application {
                     a.print(treeView);
                 }
             }
+        });
+        
+        expressionField.textProperty().addListener((ObservableValue<? extends String> ov, String t, String t1) -> {
+            submitButton.setDefaultButton(true);
+            solveStepButton.setDefaultButton(false);
         });
 
         HBox layout = new HBox(10, new VBox(10, new HBox(10, expressionField, submitButton), new HBox(10, solveStepButton, solveButton)), treeView);
