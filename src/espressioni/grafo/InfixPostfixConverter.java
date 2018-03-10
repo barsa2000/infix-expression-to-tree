@@ -58,7 +58,8 @@ public class InfixPostfixConverter {
                 while (!operator.empty()
                         && !operator.peek().equals("(")
                         && ((MyUtils.operators.get(token).getPriority() < MyUtils.operators.get(operator.peek()).getPriority())
-                        || (MyUtils.operators.get(token).getPriority() == MyUtils.operators.get(operator.peek()).getPriority() && MyUtils.operators.get(token).isAssociativityLeft()))) {
+                            || (MyUtils.operators.get(token).getPriority() == MyUtils.operators.get(operator.peek()).getPriority() 
+                                && MyUtils.operators.get(token).isAssociativityLeft()))) {
                     output.add(operator.pop());
                 }
                 operator.push(token);
