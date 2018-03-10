@@ -9,14 +9,14 @@ public class InfixPostfixConverter {
     private boolean validate(ArrayList<String> tokens) {
         int par = 0;
         boolean wasOp = true;
-        for (String s : tokens) {
-            if (s.equals("(") && wasOp) {
+        for (String t : tokens) {
+            if (t.equals("(") && wasOp) {
                 ++par;
-            } else if (s.equals(")") && !wasOp) {
+            } else if (t.equals(")") && !wasOp) {
                 --par;
-            } else if (MyUtils.isOperator(s) && !wasOp) {
+            } else if (MyUtils.isOperator(t) && !wasOp) {
                 wasOp = true;
-            } else if (MyUtils.isDouble(s)) {
+            } else if (MyUtils.isDouble(t)) {
                 wasOp = false;
             } else {
                 return false;
@@ -26,7 +26,18 @@ public class InfixPostfixConverter {
     }
 
     private ArrayList<String> tokenize(String s) {
-        return new ArrayList<>(Arrays.asList(s.split("((?<=[\\(\\)\\+\\-\\*\\/\\^\\%])|(?=[\\(\\)\\+\\-\\*\\/\\^\\%]))")));
+        ArrayList<String> tokens = new ArrayList<>(Arrays.asList(s.split("((?<=[\\(\\)\\+\\-\\*\\/\\^\\%])|(?=[\\(\\)\\+\\-\\*\\/\\^\\%]))")));
+        for(int i = tokens.size() - 1; i >= 0; --i){
+            if(tokens.get(i).matches("\\-|\\+")){
+                if((((i + 1) < tokens.size()) && MyUtils.isDouble(tokens.get(i + 1))) 
+                   && ( (i - 1) < 0 || MyUtils.isOperator(tokens.get(i - 1)))){
+                    String tmp = tokens.remove(i);
+                    tokens.set(i, tmp + tokens.get(i));
+                }
+            }
+        }
+        System.out.println(tokens);
+        return tokens;
     }
 
     public ArrayList<String> convert(String s) {

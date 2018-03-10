@@ -56,6 +56,6 @@ public class MyUtils {
     }
 
     public static boolean isOperator(String s) {
-        return s.matches("[\\+\\-\\*\\/\\^\\%]");
+        return s.matches("[\\(\\+\\-\\*\\/\\^\\%]");
     }
 }
