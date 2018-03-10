@@ -12,10 +12,8 @@ public class InfixPostfixConverter {
         for (String s : tokens) {
             if (s.equals("(") && wasOp) {
                 ++par;
-                wasOp = true;
             } else if (s.equals(")") && !wasOp) {
                 --par;
-                wasOp = false;
             } else if (MyUtils.isOperator(s) && !wasOp) {
                 wasOp = true;
             } else if (MyUtils.isDouble(s)) {
@@ -28,7 +26,7 @@ public class InfixPostfixConverter {
     }
 
     private ArrayList<String> tokenize(String s) {
-        return new ArrayList<>(Arrays.asList(s.replaceAll(" ", "").split("((?<=[\\(\\)\\+\\-\\*\\/\\^\\%])|(?=[\\(\\)\\+\\-\\*\\/\\^\\%]))")));
+        return new ArrayList<>(Arrays.asList(s.split("((?<=[\\(\\)\\+\\-\\*\\/\\^\\%])|(?=[\\(\\)\\+\\-\\*\\/\\^\\%]))")));
     }
 
     public ArrayList<String> convert(String s) {
